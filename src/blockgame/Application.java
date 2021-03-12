@@ -139,8 +139,12 @@ public class Application {
 			} else {
 				GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_NORMAL);
 			}
+
+			int[] fw = new int[1];
+			int[] fh = new int[1];
+			GLFW.glfwGetFramebufferSize(window, fw, fh);
 			
-			GL11.glViewport(0, 0, windowWidth, windowHeight);
+			GL11.glViewport(0, 0, fw[0], fh[0]);
 			GL11.glEnable(GL11.GL_DEPTH_TEST);
 			GL11.glEnable(GL11.GL_CULL_FACE);
 			GL11.glCullFace(GL11.GL_BACK);

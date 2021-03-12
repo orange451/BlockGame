@@ -24,6 +24,6 @@ public class MainGame implements InitializedRenderableCallback {
 
 	@Override
 	public void render() {
-		System.out.println(RenderThread.fps);
+		//System.out.println(RenderThread.fps);
 	}
 }
