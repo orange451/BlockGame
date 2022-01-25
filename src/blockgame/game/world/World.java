@@ -2,14 +2,14 @@ package blockgame.game.world;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-import blockgame.RenderableCallback;
 import blockgame.game.Block;
 import blockgame.game.BlockData;
 import blockgame.game.Location;
 
-public class World implements RenderableCallback {
-	private ArrayList<Chunk> chunks = new ArrayList<Chunk>();
+public class World {
+	protected ArrayList<Chunk> chunks = new ArrayList<Chunk>();
 	private HashMap<ChunkHashKey, Chunk> chunkMap = new HashMap<ChunkHashKey, Chunk>();
 
 	public final static int SEED = (int) (Math.random() * 1e5);
@@ -18,23 +18,19 @@ public class World implements RenderableCallback {
 
 	public World() {
 		
-		// Create chunks
-		int a = 2;
-		for (int i = -a; i <= a; i++) {
-			for (int j = -a; j <= a; j++) {
-				loadChunk(new Chunk(this, i, j));
-			}
-		}
-		
 		// Generate world
 		for (int i = 0; i < chunks.size(); i++) {
 			Chunk chunk = chunks.get(i);
 			WorldGeneration.generate(chunk);
 		}
 
-		new ChunkManager();
+		createChunkManager();
 	}
 	
+	protected ChunkManager createChunkManager() {
+		return new ChunkManager();
+	}
+
 	public void loadChunk(Chunk chunk) {
 		loadChunk( chunk, false );
 	}
@@ -152,19 +148,7 @@ public class World implements RenderableCallback {
 		return c.getBlockId(localX, localY, localZ);
 	}
 
-	@Override
-	public void render() {
-		for (int i = 0; i < chunks.size(); i++) {
-			if ( i >= chunks.size() )
-				continue;
-			Chunk c = chunks.get(i);
-			if ( c == null )
-				continue;
-			c.render();
-		}
-	}
-
-	public ArrayList<Chunk> getLoadedChunks() {
+	public List<Chunk> getLoadedChunks() {
 		return chunks;
 	}
 }

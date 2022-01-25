@@ -1,6 +1,7 @@
 package blockgame;
 
 import blockgame.game.world.World;
+import blockgame.game.world.client.ClientWorld;
 
 public class MainGame implements InitializedRenderableCallback {
 	public static World world;
@@ -17,9 +18,8 @@ public class MainGame implements InitializedRenderableCallback {
 	
 	@Override
 	public void initialize() {
-		world = new World();
 		Application.addRenderable(new Resources());
-		Application.addRenderable(world);
+		Application.addRenderable((RenderableCallback) (world = new ClientWorld()));
 	}
 
 	@Override

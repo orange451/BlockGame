@@ -45,10 +45,11 @@ public class WorldGeneration {
 		double h2 = naturalHeight(x+1, y);
 		double h3 = naturalHeight(x, y-1);
 		double h4 = naturalHeight(x, y+1);
+		double h5 = naturalHeight(x, y);
 
 		double average = (h1+h2+h3+h4)/4d;
-		double min = Math.min(Math.min(h1, h2), Math.min(h3, h4));
-		double max = Math.max(Math.max(h1, h2), Math.max(h3, h4));
+		double min = Math.min(Math.min(h1, h2), Math.min(h3, Math.min(h4, h5)));
+		double max = Math.max(Math.max(h1, h2), Math.max(h3, Math.max(h4, h5)));
 		return (max-average)/(min-average);
 	}
 	
@@ -129,7 +130,7 @@ public class WorldGeneration {
 				// Add ground
 				for (int a = 0; a <= H; a++) {
 					
-					if ( slope < 2 && seaOffset-slope <= 2 ) {
+					if ( slope < 1 && seaOffset-slope <= 1 ) {
 						chunk.setBlock(BlockData.SAND, i, a, j);
 						continue;
 					}

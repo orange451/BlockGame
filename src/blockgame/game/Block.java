@@ -36,4 +36,28 @@ public class Block {
 	public Location getLocation() {
 		return new Location( world, x, y, z );
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if ( o == null )
+			return false;
+		
+		if ( !(o instanceof Block) )
+			return false;
+		
+		Block b = (Block)o;
+		if ( b.blockId != this.blockId )
+			return false;
+		
+		if ( b.x != x || b.y != y || b.z != z )
+			return false;
+		
+		if ( !b.chunk.equals(this.chunk) )
+			return false;
+		
+		if ( !b.world.equals(this.world) )
+			return false;
+		
+		return true;
+	}
 }
