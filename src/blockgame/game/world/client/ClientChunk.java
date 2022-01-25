@@ -18,14 +18,22 @@ public class ClientChunk extends Chunk implements RenderableCallback {
 	
 	private BufferedMesh mesh;
 	private BufferedMesh queuedMesh;
-	private boolean loaded;
 	
 	private double tOff = -HEIGHT;
 
 	public ClientChunk(World world, int x, int y) {
 		super(world, x, y);
+		this.loaded = false;
 	}
 
+	protected boolean isUpdated() {
+		return this.updated;
+	}
+	
+	protected void unload() {
+		super.unload();
+	}
+	
 	protected void generateMesh() {
 		if ( !updated )
 			return;
@@ -116,21 +124,6 @@ public class ClientChunk extends Chunk implements RenderableCallback {
 		
 		// Clean old mesh
 		this.queuedMesh = tempMesh;
-	}
-	
-	@Override
-	public boolean loaded() {
-		return this.loaded;
-	}
-
-	protected boolean isUpdated() {
-		return this.updated;
-	}
-	
-	@Override
-	protected void unload() {
-		super.unload();
-		this.loaded = false;
 	}
 	
 	private int createFace(int index, Vertex[] vertArray, Vector3f v1, Vector3f v2, Vector3f v3, Vector3f v4, Vector3f normal, TextureInfo tinfo) {		

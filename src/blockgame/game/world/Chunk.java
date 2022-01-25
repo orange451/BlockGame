@@ -10,6 +10,7 @@ public class Chunk {
 	public static final int HEIGHT = 128;
 	
 	protected boolean updated = false;
+	protected boolean loaded = true;
 	
 	private byte[] blocks = new byte[WIDTH * DEPTH * HEIGHT];
 	
@@ -79,10 +80,11 @@ public class Chunk {
 	
 	protected void unload() {
 		this.updated = true;
+		this.loaded = false;
 	}
 	
 	public boolean loaded() {
-		return true;
+		return this.loaded;
 	}
 
 	/**
