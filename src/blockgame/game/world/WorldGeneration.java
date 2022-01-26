@@ -1,7 +1,6 @@
 package blockgame.game.world;
 
 import blockgame.etc.OpenSimplexNoise;
-import blockgame.game.Block;
 import blockgame.game.BlockData;
 
 public class WorldGeneration {

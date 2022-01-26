@@ -1,7 +1,7 @@
-package blockgame.game;
+package blockgame.game.world;
 
-import blockgame.game.world.Chunk;
-import blockgame.game.world.World;
+import blockgame.game.BlockData;
+import blockgame.game.Location;
 
 public class Block {
 	private byte blockId;

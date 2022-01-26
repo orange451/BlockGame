@@ -1,6 +1,5 @@
 package blockgame.game.world;
 
-import blockgame.game.Block;
 import blockgame.game.BlockData;
 import blockgame.game.Location;
 

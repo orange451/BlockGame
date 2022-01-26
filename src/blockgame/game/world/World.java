@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import blockgame.game.Block;
 import blockgame.game.BlockData;
 import blockgame.game.Location;
 
