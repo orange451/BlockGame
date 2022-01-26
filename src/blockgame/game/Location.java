@@ -2,6 +2,7 @@ package blockgame.game;
 
 import org.joml.Vector3f;
 
+import blockgame.game.world.Block;
 import blockgame.game.world.Chunk;
 import blockgame.game.world.World;
 
@@ -12,6 +13,8 @@ public class Location {
 	private float yaw;
 	private float pitch;
 	private World world;
+	
+	private static final float EPSILON = 0.01f;
 	
 	public Location( World world, float x, float y, float z ) {
 		this(world, x, y, z, 0, 0);
@@ -83,7 +86,26 @@ public class Location {
 		if ( loc == null )
 			return false;
 		
-		return loc.getX() == x && loc.getY() == y && loc.getZ() == z;
+		return loc.getX() == x
+				&& loc.getY() == y
+				&& loc.getZ() == z
+				&& fuzzyEq(yaw, loc.getYaw())
+				&& fuzzyEq(pitch, loc.getPitch());
+	}
+	
+	public boolean fuzzyEq( Location location ) {
+		if ( location == null )
+			return false;
+
+		return fuzzyEq(location.getX(), x)
+				&& fuzzyEq(location.getY(), y)
+				&& fuzzyEq(location.getZ(), z)
+				&& fuzzyEq(yaw, location.getYaw())
+				&& fuzzyEq(pitch, location.getPitch());
+	}
+
+	private boolean fuzzyEq(float val1, float val2) {
+		return Math.abs(val1-val2) < EPSILON;
 	}
 
 	public float distanceSquared(Location location) {
@@ -111,6 +133,20 @@ public class Location {
 	
 	public Location subtract( Location location ) {
 		return this.add( -location.getX(), -location.getY(), -location.getZ() );
+	}
+	
+	public Location set(float x, float y, float z) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		return this;
+	}
+	
+	public Location set(Location location) {
+		this.set(location.getX(), location.getY(), location.getZ());
+		this.pitch = location.getPitch();
+		this.yaw = location.getYaw();
+		return this;
 	}
 	
 	public Chunk getChunk() {
