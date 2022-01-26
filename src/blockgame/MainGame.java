@@ -3,7 +3,7 @@ package blockgame;
 import blockgame.game.world.World;
 import blockgame.game.world.client.ClientWorld;
 
-public class MainGame implements InitializedRenderableCallback {
+public class MainGame implements RenderableCallback, Initializable {
 	public static World world;
 	
 	public static int VIEW_DISTANCE = 16;

@@ -4,6 +4,7 @@ import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
 import static org.lwjgl.glfw.GLFW.glfwTerminate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
@@ -17,10 +18,13 @@ public class RenderThread {
 	
 	private int fpscounter;
 	
-	private ArrayList<RenderableCallback> callbacks;
+	private List<RenderableCallback> callbacks;
+	
+	private List<Initializable> toInitialize;
 	
 	public RenderThread() {
 		this.callbacks = new ArrayList<RenderableCallback>();
+		this.toInitialize = new ArrayList<Initializable>();
 	}
 	
 	public void addCallback(RenderableCallback callback) {
@@ -28,8 +32,10 @@ public class RenderThread {
 			callbacks.add(callback);
 		}
 		
-		if ( callback instanceof InitializedRenderableCallback ) {
-			((InitializedRenderableCallback)callback).initialize();
+		if ( callback instanceof Initializable ) {
+			synchronized(toInitialize) {
+				toInitialize.add((Initializable) callback);
+			}
 		}
 	}
 	
@@ -69,6 +75,14 @@ public class RenderThread {
 		// Set the clear color
 		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+		
+		// Initialize
+		synchronized(toInitialize) {
+			for (int i = 0; i < toInitialize.size(); i++) {
+				toInitialize.get(i).initialize();
+			}
+			toInitialize.clear();
+		}
 		
 		// Render callbacks
 		synchronized(callbacks) {
