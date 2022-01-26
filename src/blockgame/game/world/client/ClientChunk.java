@@ -87,13 +87,13 @@ public class ClientChunk extends Chunk implements RenderableCallback {
 					int worldz = y * DEPTH + k;
 					
 					// Compute needing face
-					boolean needTop = world.getBlockId( worldx, worldy + 1, worldz ) == BlockData.AIR.getId();
-					boolean needBottom = world.getBlockId( worldx, worldy - 1, worldz ) == BlockData.AIR.getId();
-					boolean needLeft = world.getBlockId( worldx - 1, worldy, worldz ) == BlockData.AIR.getId();
-					boolean needRight = world.getBlockId( worldx + 1, worldy, worldz ) == BlockData.AIR.getId();
-					boolean needFront = world.getBlockId( worldx, worldy, worldz + 1 ) == BlockData.AIR.getId();
-					boolean needBack = world.getBlockId( worldx, worldy, worldz - 1 ) == BlockData.AIR.getId();
-
+					boolean needTop = !hasOccluder( worldx, worldy + 1, worldz );
+					boolean needBottom = !hasOccluder( worldx, worldy - 1, worldz );
+					boolean needLeft = !hasOccluder( worldx - 1, worldy, worldz );
+					boolean needRight = !hasOccluder( worldx + 1, worldy, worldz );
+					boolean needFront = !hasOccluder( worldx, worldy, worldz + 1 );
+					boolean needBack = !hasOccluder( worldx, worldy, worldz - 1 );
+					
 					// Create new mesh
 					if ( needBottom )
 						vertsAdded += createFace(facesAdded++, tempVerts, t1.zero().add(0, 0, 0).add(i, j, k), t2.zero().add(1, 0, 0).add(i, j, k), t3.zero().add(1, 0, 1).add(i, j, k), t4.zero().add(0, 0, 1).add(i, j, k), tn.zero().add(0, -1, 0), bottom); // Bottom
@@ -126,6 +126,15 @@ public class ClientChunk extends Chunk implements RenderableCallback {
 		this.queuedMesh = tempMesh;
 	}
 	
+	private boolean hasOccluder(int x, int y, int z) {
+		byte blockid = world.getBlockId( x, y, z );
+		BlockData data = BlockData.getBlockData(blockid);
+		if ( data == null )
+			return false;
+		
+		return BlockData.isOcclude(data);
+	}
+
 	private int createFace(int index, Vertex[] vertArray, Vector3f v1, Vector3f v2, Vector3f v3, Vector3f v4, Vector3f normal, TextureInfo tinfo) {		
 		float t = 16;
 		

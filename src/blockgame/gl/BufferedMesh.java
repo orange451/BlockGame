@@ -173,7 +173,6 @@ public class BufferedMesh {
 	private void destroyBuffers() {
 		if ( vboId > -1 ) {
 			GL15.glDeleteBuffers(vboId);
-			System.out.println("Destroyed Buffer");
 		}
 		
 		if ( vaoId > -1 )
