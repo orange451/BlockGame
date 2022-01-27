@@ -24,7 +24,7 @@ public class ClientChunkManager extends ChunkManager {
 	public ClientChunkManager() {
 		super();
 		
-		// Chunk Mesh Generation
+		// Chunk Mesh Generation Thread
 		new Thread(new Runnable() {
 			@Override
 			public void run() {

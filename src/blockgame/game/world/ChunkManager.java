@@ -3,6 +3,7 @@ package blockgame.game.world;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -43,7 +44,7 @@ public class ChunkManager {
 					int t = MainGame.VIEW_DISTANCE;
 					
 					// Find all nearby chunks
-					ArrayList<Chunk> chunksToGenerate = new ArrayList<Chunk>();
+					List<Chunk> chunksToGenerate = new ArrayList<Chunk>();
 					for (int i = chunkX-t; i <= chunkX+t; i++) {
 						for (int j = chunkZ-t; j <= chunkZ+t; j++) {
 							Chunk currentChunk = MainGame.world.getChunk(i, j);

@@ -4,6 +4,7 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 import blockgame.Application;
+import blockgame.RenderThread;
 import blockgame.RenderableCallback;
 import blockgame.Resources;
 import blockgame.game.BlockData;
@@ -166,11 +167,11 @@ public class ClientChunk extends Chunk implements RenderableCallback {
 		
 		// Chunk animation
 		if ( !loaded ) {
-			this.tOff = tOff + (-HEIGHT-tOff)*0.001;
+			this.tOff = tOff - (HEIGHT+tOff)*RenderThread.delta;
 			if ( tOff <= -HEIGHT * 0.6 )
 				return;
 		} else {
-			tOff *= 0.99f;	
+			tOff *= 1-(RenderThread.delta*6);	
 		}
 		
 		// Render
