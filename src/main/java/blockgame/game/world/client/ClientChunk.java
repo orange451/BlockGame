@@ -85,7 +85,7 @@ public class ClientChunk extends Chunk implements RenderableCallback {
 					// Compute world coordinates
 					int worldx = x * WIDTH + i;
 					int worldy = j;
-					int worldz = y * DEPTH + k;
+					int worldz = z * DEPTH + k;
 					
 					// Compute needing face
 					boolean needTop = !hasOccluder( worldx, worldy + 1, worldz );
@@ -175,6 +175,6 @@ public class ClientChunk extends Chunk implements RenderableCallback {
 		}
 		
 		// Render
-		this.mesh.render(Application.baseShader, new Matrix4f().translate(x * WIDTH, (float) tOff, y * DEPTH), Resources.terrainMaterial);
+		this.mesh.render(Application.baseShader, new Matrix4f().translate(x * WIDTH, (float) tOff, z * DEPTH), Resources.terrainMaterial);
 	}
 }

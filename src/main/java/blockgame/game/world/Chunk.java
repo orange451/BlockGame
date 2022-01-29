@@ -14,12 +14,12 @@ public class Chunk {
 	private byte[] blocks = new byte[WIDTH * DEPTH * HEIGHT];
 	
 	protected int x;
-	protected int y;
+	protected int z;
 	protected World world;
 	
-	public Chunk(World world, int x, int y) {
+	public Chunk(World world, int x, int z) {
 		this.x = x;
-		this.y = y;
+		this.z = z;
 		this.world = world;
 		
 		// Initial loop. Set all to air
@@ -90,14 +90,14 @@ public class Chunk {
 	 * @return The chunk location. This is in chunk-space.
 	 */
 	public Location getLocation() {
-		return new Location( world, x, 0, y );
+		return new Location( world, x, 0, z );
 	}
 	
 	/**
 	 * @return The world location this chunk exists at. This is in block-space.
 	 */
 	public Location getWorldLocation() {
-		return new Location( world, x * WIDTH, 0, y * DEPTH );
+		return new Location( world, x * WIDTH, 0, z * DEPTH );
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class Chunk {
 			return false;
 		
 		Chunk c = (Chunk)o;
-		if ( c.x != x || c.y != y )
+		if ( c.x != x || c.z != z )
 			return false;
 		
 		if ( !c.world.equals(world) )

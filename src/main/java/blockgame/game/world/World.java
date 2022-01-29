@@ -8,7 +8,7 @@ import blockgame.game.BlockData;
 import blockgame.game.Location;
 
 public class World {
-	protected ArrayList<Chunk> chunks = new ArrayList<Chunk>();
+	protected List<Chunk> chunks = new ArrayList<Chunk>();
 	private HashMap<ChunkHashKey, Chunk> chunkMap = new HashMap<ChunkHashKey, Chunk>();
 
 	public final static int SEED = (int) (Math.random() * 1e5);
