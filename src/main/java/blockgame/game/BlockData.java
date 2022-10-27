@@ -3,8 +3,10 @@ package blockgame.game;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum BlockData {
-	GRASS(1, new TextureInfo(TextureType.ALL, 3,0), new TextureInfo(TextureType.TOP, 0,0), new TextureInfo(TextureType.BOTTOM, 2,0)),
+import blockgame.game.material.MaterialData;
+
+public abstract class BlockData implements Material {
+	/*GRASS(1, new TextureInfo(TextureType.ALL, 3,0), new TextureInfo(TextureType.TOP, 0,0), new TextureInfo(TextureType.BOTTOM, 2,0)),
 	STONE(2, new TextureInfo(TextureType.ALL, 1,0)),
 	DIRT(3, new TextureInfo(TextureType.ALL, 2,0)),
 	LOG(4, new TextureInfo(TextureType.ALL, 4,1), new TextureInfo(TextureType.TOP, 5,1), new TextureInfo(TextureType.BOTTOM, 5,1)),
@@ -12,7 +14,7 @@ public enum BlockData {
 	SAND(6, new TextureInfo(TextureType.ALL, 2,1)),
 	BEDROCK(7, new TextureInfo(TextureType.ALL, 1,1)),
 	WATER(8, new TextureInfo(TextureType.ALL, 0,9)),
-	AIR(0, params().setSolid(false).setOcclude(false));
+	AIR(0, params().setSolid(false).setOcclude(false));*/
 	
 	private byte id;
 	private BlockParams params;
